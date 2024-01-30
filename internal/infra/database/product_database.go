@@ -22,21 +22,10 @@ func (p *Product) Create(product *entity.Product) (*entity.Product, error) {
 }
 
 func (p *Product) FindAll(page, limit int, sort string) ([]*entity.Product, error) {
-	if sort != "asc" && sort != "desc" && sort != "" {
-		sort = "asc"
-	}
-
 	var products []*entity.Product
-	if limit != 0 && page != 0 {
-		if err := p.DB.Order("created_at" + sort).Limit(limit).Offset((page - 1) * limit).Find(&products).Error; err != nil {
-			return nil, err
-		}
-	}
-
-	if err := p.DB.Order("created_at" + sort).Find(&products).Error; err != nil {
+	if err := p.DB.Offset((page - 1) * limit).Limit(limit).Order("created_at " + sort).Find(&products).Error; err != nil {
 		return nil, err
 	}
-
 	return products, nil
 }
 
