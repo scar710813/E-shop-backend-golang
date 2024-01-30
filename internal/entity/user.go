@@ -19,7 +19,7 @@ func NewUser(name, email, password string) (*User, error) {
 	}
 
 	newUser := &User{
-		Id:       entity.New(),
+		Id:       entity.NewId(),
 		Name:     name,
 		Email:    email,
 		Password: string(hashedPassword),

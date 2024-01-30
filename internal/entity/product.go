@@ -23,9 +23,8 @@ type Product struct {
 }
 
 func NewProduct(name string, price int) (*Product, error) {
-	id := entity.New()
 	product := &Product{
-		Id:        id,
+		Id:        entity.NewId(),
 		Name:      name,
 		Price:     price,
 		CreatedAt: time.Now(),
