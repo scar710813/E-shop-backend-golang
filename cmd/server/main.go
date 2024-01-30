@@ -1,5 +1,18 @@
 package main
 
+import (
+	"fmt"
+	"log"
+
+	"github.com/PaoloProdossimoLopes/goshop/configs"
+)
+
 func main() {
-	println("Hello, World!")
+	configurations, loadConfigurationError := configs.LoadConfigurations(".")
+	if loadConfigurationError != nil {
+		log.Fatalf("Error loading configurations: %v", loadConfigurationError)
+		panic(loadConfigurationError)
+	}
+
+	fmt.Println(configurations)
 }
