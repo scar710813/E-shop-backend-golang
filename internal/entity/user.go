@@ -12,7 +12,7 @@ type User struct {
 	Password string    `json:"-"`
 }
 
-func New(name, email, password string) (*User, error) {
+func NewUser(name, email, password string) (*User, error) {
 	hashedPassword, hashPasswordError := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if hashPasswordError != nil {
 		return nil, hashPasswordError
@@ -29,5 +29,5 @@ func New(name, email, password string) (*User, error) {
 
 func (u *User) ValidatePassword(password string) bool {
 	comparePasswordError := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password))
-	return comparePasswordError != nil
+	return comparePasswordError == nil
 }
