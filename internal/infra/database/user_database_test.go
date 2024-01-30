@@ -10,7 +10,7 @@ import (
 )
 
 func TestCreateUser(t *testing.T) {
-	db, _ := gorm.Open(sqlite.Open("file::memory"), &gorm.Config{})
+	db, _ := gorm.Open(sqlite.Open("file::memory:"), &gorm.Config{})
 	db.AutoMigrate(&entity.User{})
 
 	domainUser, _ := entity.NewUser("Jhomn Doe", "j@j.com", "123456")
