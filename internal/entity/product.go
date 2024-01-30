@@ -31,14 +31,14 @@ func NewProduct(name string, price int) (*Product, error) {
 		CreatedAt: time.Now(),
 	}
 
-	if productValidationError := product.Validate(); productValidationError != nil {
+	if productValidationError := product.validate(); productValidationError != nil {
 		return nil, productValidationError
 	}
 
 	return product, nil
 }
 
-func (p *Product) Validate() error {
+func (p *Product) validate() error {
 	if p.Id.String() == "" {
 		return ErrorIdIsRequired
 	}
