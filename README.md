@@ -10,3 +10,4 @@ products after the user authenticate
 - [UUID](github.com/google/uuid) to generate UUID V4 format.
 - [Testfy](github.com/stretchr/testify) to make assertions more common with other languages.
 - [GORM](gorm.io/gorm) to make assertions more common with other languages.
+- [Chi](github.com/go-chi/chi) to handle with routes in the webserver application
