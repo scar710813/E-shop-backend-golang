@@ -61,6 +61,17 @@ func (self *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(userCreated)
 }
 
+// Get token
+// @Summary 	Get a user token
+// @Description Get a user token
+// @Tags 		users
+// @Accept 		json
+// @Produce 	json
+// @Param 		request body dto.GetJwtInput true "Get user token request"
+// @Success 	200 {object} dto.GetJwtOutput
+// @Failure 	400
+// @Failure 	500
+// @Router 		/users/generate-token [post]
 func (self *UserHandler) GetJwt(w http.ResponseWriter, r *http.Request) {
 	var credentialsRequest dto.GetJwtInput
 	jsonDecoderUserError := json.NewDecoder(r.Body).Decode(&credentialsRequest)
@@ -89,11 +100,7 @@ func (self *UserHandler) GetJwt(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	accessToken := struct {
-		AccessToken string `json:"access_token"`
-	}{
-		AccessToken: token,
-	}
+	accessToken := dto.GetJwtOutput{AccessToken: token}
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(accessToken)
