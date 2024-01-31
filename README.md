@@ -1,6 +1,6 @@
 # GoShop
 
-[![CI](https://github.com/PaoloProdossimoLopes/goshop/workflows/CI/badge.svg)](https://github.com/PaoloProdossimoLopes/goshop/actions?query=workflow%3ACI)
+[![CI](https://github.com/PaoloProdossimoLopes/goshop/workflows/main/badge.svg)](https://github.com/PaoloProdossimoLopes/goshop/actions?query=workflow%3ACI)
 [![Coverage](https://img.shields.io/badge/Coverage-84.8%25-brightgreen)](https://github.com/PaoloProdossimoLopes/goshop)
 
 Backend application using GoLang to provide a list of 
