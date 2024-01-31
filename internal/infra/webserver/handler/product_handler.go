@@ -97,3 +97,20 @@ func (self *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(productUpdated)
 }
+
+func (self *ProductHandler) DeleteProduct(w http.ResponseWriter, r *http.Request) {
+	id := chi.URLParam(r, "id")
+	if id == "" {
+		http.Error(w, "id is required", http.StatusBadRequest)
+		return
+	}
+
+	deleteProductError := self.ProductDatabase.Delete(id)
+	if deleteProductError != nil {
+		http.Error(w, deleteProductError.Error(), http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}

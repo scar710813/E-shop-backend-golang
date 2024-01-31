@@ -6,7 +6,7 @@
  ###
 
 // @name createProduct
-POST {{route}}
+POST {{route}} HTTP/1.1
 Content-Type: application/json
 
 {
@@ -16,17 +16,23 @@ Content-Type: application/json
 
 ###
 
-// @name findProduct
-GET {{route}}/{{productId}}
+// @name findProductById
+GET {{route}}/{{productId}} HTTP/1.1
 Content-Type: application/json
 
 ###
 
-// @name updateProduct
-PUT {{route}}/{{productId}}
+// @name updateProductById
+PUT {{route}}/{{productId}} HTTP/1.1
 Content-Type: application/json
 
 {
     "name": "Updated product",
     "price": 200
 }
+
+###
+
+// @name deleteProductById
+DELETE {{route}}/hjkhjk HTTP/1.1
+Content-Type: application/json
