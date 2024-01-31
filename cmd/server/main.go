@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -53,6 +54,7 @@ func main() {
 		userRoute.Post("/generate-token", userHandler.GetJwt)
 	})
 
-	println("🔥 Server runing on port 8000")
-	http.ListenAndServe(":8000", router)
+	const port = 8000
+	println(fmt.Sprintf("🔥 Server runing on http://localhost:%v\n\n", port))
+	http.ListenAndServe(fmt.Sprintf(":%v", port), router)
 }
