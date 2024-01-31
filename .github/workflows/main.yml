@@ -25,4 +25,10 @@ jobs:
       run: go build -v ./...
 
     - name: Test
-      run: go test -v ./...
+      run: go test -v ./... -coverprofile=coverage.out
+
+    - name: Go Coverage Badge
+      uses: tj-actions/coverage-badge-go@v2.4.1
+      with:
+        filename: coverage.out
+        link: https://github.com/PaoloProdossimoLopes/goshop
