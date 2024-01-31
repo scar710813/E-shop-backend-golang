@@ -1,8 +1,32 @@
-// @create-product
-POST http://localhost:8000/products
+ @host = http://localhost:8000
+ @endpoint = products
+ @route = {{host}}/{{endpoint}}
+ @productId = {{createProduct.response.body.id}}
+
+ ###
+
+// @name createProduct
+POST {{route}}
 Content-Type: application/json
 
 {
     "name": "New product",
     "price": 100
+}
+
+###
+
+// @name findProduct
+GET {{route}}/{{productId}}
+Content-Type: application/json
+
+###
+
+// @name updateProduct
+PUT {{route}}/{{productId}}
+Content-Type: application/json
+
+{
+    "name": "Updated product",
+    "price": 200
 }

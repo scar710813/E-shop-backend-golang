@@ -8,6 +8,8 @@ import (
 	"github.com/PaoloProdossimoLopes/goshop/internal/entity"
 	"github.com/PaoloProdossimoLopes/goshop/internal/infra/database"
 	"github.com/PaoloProdossimoLopes/goshop/internal/infra/webserver/handler"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -28,8 +30,13 @@ func main() {
 
 	productDatabase := database.NewProduct(db)
 	productHandler := handler.NewProductHandler(productDatabase)
-	http.HandleFunc("/products", productHandler.CreateProduct)
+
+	router := chi.NewRouter()
+	router.Use(middleware.Logger)
+	router.Post("/products", productHandler.CreateProduct)
+	router.Get("/products/{id}", productHandler.GetProduct)
+	router.Put("/products/{id}", productHandler.UpdateProduct)
 
 	println("🔥 Server runing on port 8000")
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(":8000", router)
 }
