@@ -1,5 +1,8 @@
 # GoShop
 
+[![CI](https://github.com/PaoloProdossimoLopes/goshop/workflows/CI/badge.svg)](https://github.com/PaoloProdossimoLopes/goshop/actions?query=workflow%3ACI)
+[![Coverage](https://img.shields.io/badge/Coverage-100.0%25-brightgreen)](https://github.com/PaoloProdossimoLopes/goshop/actions/workflows/test.yml)
+
 Backend application using GoLang to provide a list of 
 products after the user authenticate 
 
