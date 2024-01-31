@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/PaoloProdossimoLopes/goshop/configs"
 	"github.com/PaoloProdossimoLopes/goshop/internal/entity"
@@ -33,6 +34,7 @@ func main() {
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
+	router.Use(middleware.Timeout(time.Duration(2) * time.Second))
 
 	router.Route("/products", func(productRouter chi.Router) {
 		productRouter.Use(jwtauth.Verifier(configuration.JwtTokenAuth))
