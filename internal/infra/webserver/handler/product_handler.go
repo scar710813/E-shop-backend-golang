@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/PaoloProdossimoLopes/goshop/internal/dto"
 	"github.com/PaoloProdossimoLopes/goshop/internal/entity"
@@ -113,4 +114,30 @@ func (self *ProductHandler) DeleteProduct(w http.ResponseWriter, r *http.Request
 	}
 
 	w.WriteHeader(http.StatusNoContent)
+}
+
+func (self *ProductHandler) GetAllProducts(w http.ResponseWriter, r *http.Request) {
+	pageParam := r.URL.Query().Get("page")
+	limitParam := r.URL.Query().Get("limit")
+	sort := r.URL.Query().Get("sort")
+
+	page, convertPageError := strconv.Atoi(pageParam)
+	if convertPageError != nil {
+		page = 0
+	}
+
+	limit, convertLimitError := strconv.Atoi(limitParam)
+	if convertLimitError != nil {
+		limit = 10
+	}
+
+	products, getProductsError := self.ProductDatabase.FindAll(page, limit, sort)
+	if getProductsError != nil {
+		http.Error(w, getProductsError.Error(), http.StatusInternalServerError)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(products)
 }
