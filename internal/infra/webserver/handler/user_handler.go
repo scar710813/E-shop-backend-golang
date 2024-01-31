@@ -25,6 +25,17 @@ func NewUserHandler(userDatabase database.UserRespository, jwt *jwtauth.JWTAuth,
 	}
 }
 
+// Create user godoc
+// @Summary 	Create a user
+// @Description Create a user
+// @Tags 		users
+// @Accept 		json
+// @Produce 	json
+// @Param 		request body dto.CreateUserINput true "Create user request"
+// @Success 	201 {object} entity.User
+// @Failure 	400
+// @Failure 	500
+// @Router 		/users [post]
 func (self *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	var userRequest dto.CreateUserINput
 	jsonDecoderUserError := json.NewDecoder(r.Body).Decode(&userRequest)

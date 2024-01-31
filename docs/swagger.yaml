@@ -1,4 +1,23 @@
 basePath: /
+definitions:
+  dto.CreateUserINput:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  entity.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
 host: localhost:8000
 info:
   contact:
@@ -12,7 +31,33 @@ info:
   termsOfService: http://swagger.io/terms/
   title: GoShop
   version: "1.0"
-paths: {}
+paths:
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: Create a user
+      parameters:
+      - description: Create user request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserINput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/entity.User'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Create a user
+      tags:
+      - users
 securityDefinitions:
   ApiKeyAuth:
     in: header
