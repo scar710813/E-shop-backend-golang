@@ -2,7 +2,6 @@
  @endpoint = users
  @route = {{host}}/{{endpoint}}
  @userId = {{createUser.response.body.id}}
-
  @email = "j@j.com"
  @password = "123456"
 
