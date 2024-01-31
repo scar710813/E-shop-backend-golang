@@ -31,22 +31,27 @@ func main() {
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 
-	productDatabase := database.NewProduct(db)
-	productHandler := handler.NewProductHandler(productDatabase)
-	router.Post("/products", productHandler.CreateProduct)
-	router.Get("/products", productHandler.GetAllProducts)
-	router.Get("/products/{id}", productHandler.GetProduct)
-	router.Put("/products/{id}", productHandler.UpdateProduct)
-	router.Delete("/products/{id}", productHandler.DeleteProduct)
+	router.Route("/products", func(productRouter chi.Router) {
+		productDatabase := database.NewProduct(db)
+		productHandler := handler.NewProductHandler(productDatabase)
 
-	userDatabase := database.NewUser(db)
-	userHandler := handler.NewUserHandler(
-		userDatabase,
-		configuration.JwtTokenAuth,
-		configuration.JwtExpiresIn,
-	)
-	router.Post("/users", userHandler.CreateUser)
-	router.Post("/users/generate-token", userHandler.GetJwt)
+		productRouter.Post("/", productHandler.CreateProduct)
+		productRouter.Get("/", productHandler.GetAllProducts)
+		productRouter.Get("/{id}", productHandler.GetProduct)
+		productRouter.Put("/{id}", productHandler.UpdateProduct)
+		productRouter.Delete("/{id}", productHandler.DeleteProduct)
+	})
+
+	router.Route("/users", func(userRoute chi.Router) {
+		userDatabase := database.NewUser(db)
+		userHandler := handler.NewUserHandler(
+			userDatabase,
+			configuration.JwtTokenAuth,
+			configuration.JwtExpiresIn,
+		)
+		userRoute.Post("/", userHandler.CreateUser)
+		userRoute.Post("/generate-token", userHandler.GetJwt)
+	})
 
 	println("🔥 Server runing on port 8000")
 	http.ListenAndServe(":8000", router)
