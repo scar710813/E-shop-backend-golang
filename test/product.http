@@ -1,0 +1,8 @@
+// @create-product
+POST http://localhost:8000/products
+Content-Type: application/json
+
+{
+    "name": "New product",
+    "price": 100
+}

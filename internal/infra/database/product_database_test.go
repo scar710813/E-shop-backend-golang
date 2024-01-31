@@ -97,5 +97,4 @@ func TestDeleteProduct(t *testing.T) {
 
 	_, findProductError := prouctDatabase.FindById(product.Id.String())
 	assert.Error(t, findProductError)
-
 }
