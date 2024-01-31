@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	_, loadConfigurationError := configs.LoadConfigurations(".")
+	configuration, loadConfigurationError := configs.LoadConfigurations(".")
 	if loadConfigurationError != nil {
 		log.Fatalf("Error loading configurations: %v", loadConfigurationError)
 		panic(loadConfigurationError)
@@ -40,8 +40,13 @@ func main() {
 	router.Delete("/products/{id}", productHandler.DeleteProduct)
 
 	userDatabase := database.NewUser(db)
-	userHandler := handler.NewUserHandler(userDatabase)
+	userHandler := handler.NewUserHandler(
+		userDatabase,
+		configuration.JwtTokenAuth,
+		configuration.JwtExpiresIn,
+	)
 	router.Post("/users", userHandler.CreateUser)
+	router.Post("/users/generate-token", userHandler.GetJwt)
 
 	println("🔥 Server runing on port 8000")
 	http.ListenAndServe(":8000", router)
