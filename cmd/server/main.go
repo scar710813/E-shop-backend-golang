@@ -11,6 +11,7 @@ import (
 	"github.com/PaoloProdossimoLopes/goshop/internal/infra/webserver/handler"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/jwtauth"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -33,6 +34,9 @@ func main() {
 	router.Use(middleware.Logger)
 
 	router.Route("/products", func(productRouter chi.Router) {
+		productRouter.Use(jwtauth.Verifier(configuration.JwtTokenAuth))
+		productRouter.Use(jwtauth.Authenticator)
+
 		productDatabase := database.NewProduct(db)
 		productHandler := handler.NewProductHandler(productDatabase)
 

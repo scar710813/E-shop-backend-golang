@@ -2,12 +2,26 @@
  @endpoint = products
  @route = {{host}}/{{endpoint}}
  @productId = {{createProduct.response.body.id}}
+ @authToken = {{generateToken.response.body.access_token}}
 
- ###
+###
+
+/// Use to generate a token before the requests 
+// @name generateToken 
+POST {{host}}/users/generate-token HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "j@j.com",
+    "password": "123456"
+}
+
+###
 
 // @name createProduct
 POST {{route}} HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{authToken}}
 
 {
     "name": "New product",
@@ -19,18 +33,21 @@ Content-Type: application/json
 // @name getAllProducts
 GET {{route}}?page=1&sort=asc&limit=5 HTTP/1.1
 Content-Type: application/jsons
+Authorization: Bearer {{authToken}}
 
 ###
 
 // @name findProductById
 GET {{route}}/{{productId}} HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{authToken}}
 
 ###
 
 // @name updateProductById
 PUT {{route}}/{{productId}} HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{authToken}}
 
 {
     "name": "Updated product",
@@ -42,3 +59,4 @@ Content-Type: application/json
 // @name deleteProductById
 DELETE {{route}}/{{productId}} HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{authToken}}
