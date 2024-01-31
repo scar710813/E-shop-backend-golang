@@ -1,0 +1,28 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a simple shop API",
+        "title": "GoShop",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Paolo Prodossimo Lopes",
+            "url": "http://paoloprodossimolopes.com",
+            "email": "http://paolo.prodossimo.lopes@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "http://mit-license.org"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "paths": {},
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

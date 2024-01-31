@@ -1,0 +1,21 @@
+basePath: /
+host: localhost:8000
+info:
+  contact:
+    email: http://paolo.prodossimo.lopes@gmail.com
+    name: Paolo Prodossimo Lopes
+    url: http://paoloprodossimolopes.com
+  description: This is a simple shop API
+  license:
+    name: MIT
+    url: http://mit-license.org
+  termsOfService: http://swagger.io/terms/
+  title: GoShop
+  version: "1.0"
+paths: {}
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

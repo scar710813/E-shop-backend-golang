@@ -15,8 +15,29 @@ import (
 	"github.com/go-chi/jwtauth"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+
+	_ "github.com/PaoloProdossimoLopes/goshop/docs"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
+// @title 			GoShop
+// @version 		1.0
+// @description 	This is a simple shop API
+// @termsOfService 	http://swagger.io/terms/
+
+// @contact.name 	Paolo Prodossimo Lopes
+// @contact.url 	http://paoloprodossimolopes.com
+// @contact.email 	http://paolo.prodossimo.lopes@gmail.com
+
+// @license.name 	MIT
+// @license.url 	http://mit-license.org
+
+// @host 			localhost:8000
+// @BasePath 		/
+
+// @securityDefinitions.apikey 	ApiKeyAuth
+// @in 							header
+// @name 						Authorization
 func main() {
 	configuration, loadConfigurationError := configs.LoadConfigurations(".")
 	if loadConfigurationError != nil {
@@ -60,6 +81,8 @@ func main() {
 		userRoute.Post("/", userHandler.CreateUser)
 		userRoute.Post("/generate-token", userHandler.GetJwt)
 	})
+
+	router.Get("/docs/*", httpSwagger.Handler(httpSwagger.URL("http://localhost:8000/docs/doc.json")))
 
 	const port = 8000
 	println(fmt.Sprintf("🔥 Server runing on http://localhost:%v\n\n", port))
